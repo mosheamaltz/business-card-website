@@ -31,6 +31,7 @@ require('./config/passport-setup');
 //Routers:
 var indexRouter = require('./routes/index');
 var authRouter = require('./routes/auth');
+var profRouter = require('./routes/profile-routes');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -44,7 +45,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 /// Add routers to app:
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
-app.use('/google', authRouter);
+app.use('/profile', profRouter);
 
 
 

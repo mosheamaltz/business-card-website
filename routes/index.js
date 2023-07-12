@@ -3,12 +3,16 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Business card website', authenticated: req.app.locals.authenticated});
+  res.render('index', { 
+    title: 'Business card website', 
+    authenticated: req.user? true: false
+  });
 });
+
 
 /* GET sign out request*/
 router.get('*/sign-out', function(req, res, next) {
-  req.app.locals.authenticated =false;
+  req.logout();
   res.redirect('/');
 });
 

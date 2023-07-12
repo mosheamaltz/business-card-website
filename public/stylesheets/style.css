@@ -41,3 +41,68 @@ a {
 .content{
   margin: 20px 20px 0 20px;
 }
+
+p.error{
+  color: red;
+  font-size: 12px;
+}
+
+/* Profile page styling */
+
+#card_box{
+  display: contents;
+  padding: 10px;
+  margin-left: 20px;
+}
+
+.single-card{
+  display: block;
+  background-color: aliceblue;
+  color: darkblue;
+  font-size: 12px;
+}
+
+.single-card .contact-us{
+  position: fixed;
+  bottom: 0px;
+  height: 30px;
+  width: 100px;
+}
+
+.single-card .title{
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 20px;
+  color: midnightblue;
+}
+
+/* Create card form styling: */
+
+
+
+#createCardForm{
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#createCardForm form {
+  display: grid;
+  outline: silver 10px;
+  outline-style: groove;
+  padding: 40px;
+
+}
+
+#createCardForm input{
+  width: 100px;
+  color: gray;
+  background-color: antiquewhite;
+  outline-width: 1px;
+  outline-color: darkslategrey;
+}
+
+
+
