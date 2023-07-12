@@ -1,0 +1,20 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    nav
+      ul
+        li 
+          a(href='/') Homepage
+      if authenticated
+        li 
+          a My Cards
+        li 
+          a(href='sign-out/') Sign out
+      else
+        li 
+          a(href='auth/') Sign In
+    
+    block content

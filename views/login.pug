@@ -1,0 +1,12 @@
+extends layout
+
+block content
+    .content
+        h1= title 
+        p Welcome! Please enter your email and password to sign up/sign in.
+        form(action="reg-signin", method="post") 
+            input#email(type="email", name="username")
+            input#password(type="password", name="password")
+            input(type="submit", value="LOG IN", class="login-submit")
+        p Or,
+        a(href="google/") Sign In With Google
