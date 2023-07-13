@@ -39,6 +39,7 @@ a {
 }
 
 .content{
+  display: block;
   margin: 20px 20px 0 20px;
 }
 
@@ -49,26 +50,60 @@ p.error{
 
 /* Profile page styling */
 
+#profile-page-content-container{
+  display: flex;
+  margin: inherit;
+}
+
 #card_box{
-  display: contents;
+  overflow-y: scroll;
+  max-height: 300px;
+  max-width: fit-content;
+  background: lightgray;
+  display: block;
   padding: 10px;
   margin-left: 20px;
 }
 
 .single-card{
-  display: block;
-  background-color: aliceblue;
-  color: darkblue;
-  font-size: 12px;
+    display: block;
+    background-color: aliceblue;
+    color: darkblue;
+    font-size: 12px;
+    width: initial;
+    outline-style: double;
+    padding: 10px;
+    margin: 10px;
+    text-align: center;
 }
 
+.single-card .pic-and-name-container{
+  display: flex;
+}
+
+.single-card .title-container{
+  position: relative;
+  left: 30px;
+}
+
+.single-card img{
+  height: 80px;
+  margin: 15px;
+}
 .single-card .contact-us{
-  position: fixed;
-  bottom: 0px;
-  height: 30px;
-  width: 100px;
+  font-size: 9px;
+  display: inline;
 }
 
+.single-card .contact-us a{
+  color: darkblue;
+  margin: 4px;
+}
+
+.single-card .contact-us p{
+  display: inline;
+  margin: 2px;
+}
 .single-card .title{
   margin-left: auto;
   margin-right: auto;
@@ -80,28 +115,42 @@ p.error{
 
 /* Create card form styling: */
 
+#x_button{
+  border: #000;
+  border-width: 1px;
+  border-style: solid;
+  width: max-content;
+  cursor: pointer;
+  position: relative;
+  top:10px;
+  left:200px;
+}
 
 
 #createCardForm{
+  position: relative;
   display: table;
-  margin-left: auto;
-  margin-right: auto;
+  margin-block-start: inherit;
+  margin-left: inherit;
 }
 
 #createCardForm form {
   display: grid;
   outline: silver 10px;
   outline-style: groove;
-  padding: 40px;
 
 }
 
+#createCardForm form > * {
+  margin: 5px;
+}
+ 
 #createCardForm input{
-  width: 100px;
-  color: gray;
+  width: 150px;
   background-color: antiquewhite;
   outline-width: 1px;
   outline-color: darkslategrey;
+  margin: 5px;
 }
 
 

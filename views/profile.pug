@@ -3,10 +3,13 @@ extends layout
 block content
 
     mixin cardView(card)
-        li.single-card 
-            p.title= card.name 
-            p= card.type
-            p Contact us! 
+        li.single-card
+            .pic-and-name-container
+                img(src=card.$locals.image_src, alt="No Image")
+                .title-container
+                    p.title= card.name 
+                    p= card.type
+                    p Contact us! 
             .contact-us
                 p= card.phone
                 a(href="http://"+card.website)= card.website 
@@ -15,21 +18,25 @@ block content
         script(src='/javascripts/profile-page-behavior.js') 
         h1= user.username 
         p All cards 
-        ul#card_box 
-            each card in cards 
-                +cardView(card)
-        input(type="button", value="Create new card", id="createCardBtn", onClick="openCardForm()")
-    #createCardForm(style={visibility: 'hidden'})
-        form(action="./create-card", method="post") 
-            label(for="name") Name: 
-            input#name(type="text", name="name", required)
-            label(for="type") Type:
-            input#type(type="text", name="type")
-            label(for="phone") Phone number of your business:
-            input#phone(type="text", name="phone")
-            label(for="website") Website of your business: 
-            input#website(type="url", name="website")
-            label(for="business_email") Email address of your main contact 
-            input#business_email(type="email", name="business_email")
-            input(type="button", value="Use Current User Email", onClick='document.getElementById(\'business_email\').value=\"'+user.username+'\"')
-            input(type="submit", value="Create")
+        #profile-page-content-container
+            #card_box 
+                ul
+                    each card in cards 
+                        +cardView(card)
+                input(type="button", value="Create new card", id="createCardBtn", onClick="openCardForm()")
+            #createCardForm(style={visibility: 'hidden'})
+                form(action="/profile/create-card", method="post" enctype='multipart/form-data') 
+                    #x_button(onClick='closeCardForm()') X
+                    label(for="name") Name: 
+                    input#name(type="text", name="name", required)
+                    label(for="type") Type:
+                    input#type(type="text", name="type")
+                    label(for="phone") Phone number of your business:
+                    input#phone(type="text", name="phone")
+                    label(for="website") Website of your business: 
+                    input#website(type="url", name="website")
+                    label(for="business_email") Email address of your main contact 
+                    input#business_email(type="email", name="business_email")
+                    input(type="button", value="Use Current User Email", onClick='document.getElementById(\'business_email\').value=\"'+user.username+'\"')
+                    input#image_file(type="file", name="image_file", onchange='fileChosen()', accept='image/*')
+                    input(type="submit", value="Create")

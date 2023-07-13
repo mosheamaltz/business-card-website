@@ -6,7 +6,9 @@ const cardSchema = new mongoose.Schema({
     phone: String,
     type: String,
     website: String,
-    business_email: String
+    business_email: String,
+    image_filename: String,
+    image: Buffer
 });
 
 const Card = mongoose.model('card', cardSchema);

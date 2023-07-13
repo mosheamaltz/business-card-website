@@ -57,7 +57,6 @@ passport.use(
         .then( (curUser) => {
             if(curUser){
                 //already have user
-                console.log("found user: ", curUser);
                 done(null, curUser);
             }
             else { // need to create new user for this google id
