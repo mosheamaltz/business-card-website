@@ -21,7 +21,6 @@ router.get('/google', passport.authenticate('google'));
 router.get('/google/redirect',
 /** Fire passport verify callback:*/ passport.authenticate('google'),
    function(req,res, next){
-    req.app.locals.authenticated=true;
     res.redirect('/profile');
 });
 
