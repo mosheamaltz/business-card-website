@@ -3,19 +3,18 @@ html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
-    - const PATH = 'http://localhost:3000';
   body
     nav
       ul
         li 
-          a(href=PATH+'/') Homepage
+          a(href='/') Homepage
       if authenticated
         li 
-          a(href=PATH+'/profile/') My Cards
+          a(href='/profile/') My Cards
         li 
-          a(href=PATH+'/sign-out/') Sign out
+          a(href='/sign-out/') Sign out
       else
         li 
-          a(href=PATH+'/auth/') Sign In
+          a(href='/auth/') Sign In
     
     block content
