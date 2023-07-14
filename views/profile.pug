@@ -2,18 +2,7 @@ extends layout
 
 block content
 
-    mixin cardView(card)
-        li.single-card
-            .pic-and-name-container
-                img(src=card.$locals.image_src, alt="No Image")
-                .title-container
-                    p.title= card.name 
-                    p= card.type
-                    p Contact us! 
-            .contact-us
-                p= card.phone
-                a(href="http://"+card.website)= card.website 
-                a(href="mailto:"+card.business_email)= card.business_email
+    include mixin-card-view.pug    
     .content 
         script(src='/javascripts/profile-page-behavior.js') 
         h1= user.username 
