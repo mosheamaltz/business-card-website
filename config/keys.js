@@ -3,7 +3,7 @@ module.exports = {
     google : {
         client_secret: "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",
         client_id: "600062574859-v37fdm2ida9sulsa08klkgrivh6u1495.apps.googleusercontent.com",
-        redirectURI: "http://https://moshe-maltz-business-card-web-site.onrender.com/auth/google/redirect"
+        redirectURI: "https://moshe-maltz-business-card-web-site.onrender.com/auth/google/redirect"
         
     },
     mongodb : {
