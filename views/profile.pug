@@ -2,8 +2,8 @@ extends layout
 
 block content
 
-    include mixin-card-view.pug    
     .content 
+        include ./mixin-card-view.pug
         script(src='/javascripts/profile-page-behavior.js') 
         h1= user.username 
         p All cards 

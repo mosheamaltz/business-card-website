@@ -2,6 +2,18 @@ var express = require('express');
 const passport = require('passport');
 var router = express.Router();
 
+
+function generatePassword() {
+    var length = 12,
+        charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*",
+        retVal = "";
+    for (var i = 0, n = charset.length; i < length; ++i) {
+        retVal += charset.charAt(Math.floor(Math.random() * n));
+    }
+    return retVal;
+}
+
+
 /* GET login page. */
 router.get('/', function(req, res, next) {
     if(req.user)
@@ -12,6 +24,17 @@ router.get('/', function(req, res, next) {
             err=true;
         res.render('login', { title: 'Log In', authenticated: false, errMsg: err });
     }
+});
+
+
+/* GET SIGN UP PAGE */
+
+router.get('/sign-up', (req, res, next)=>{
+
+});
+
+router.get('/create-password', (req, res, next)=>{
+
 });
 
 /* GET auth google */

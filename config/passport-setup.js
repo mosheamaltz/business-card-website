@@ -10,15 +10,7 @@ function stripEmailOfDots(email){
     return [head, tail].join('@');
 }
 
-function generatePassword() {
-    var length = 12,
-        charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*",
-        retVal = "";
-    for (var i = 0, n = charset.length; i < length; ++i) {
-        retVal += charset.charAt(Math.floor(Math.random() * n));
-    }
-    return retVal;
-}
+
 
 passport.serializeUser( (user, done) => {
     
@@ -62,7 +54,7 @@ passport.use(
             else { // need to create new user for this google id
                 new User({
                     username: email,
-                    password: generatePassword()
+                    password: null
                 })
                 .save()
                 .then( (newUser) => {

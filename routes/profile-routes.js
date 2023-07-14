@@ -1,8 +1,6 @@
 var express = require('express');
 var router = express.Router();
 
-var path = require('path');
-var fs = require('fs');
 var multer = require('multer');
 
 var upload = multer({storage: multer.memoryStorage()});
@@ -10,7 +8,9 @@ var upload = multer({storage: multer.memoryStorage()});
 var Card = require('../model/card');
 var User = require('../model/user');
 
-const { pathToFileURL } = require('url');
+
+const { image_bufs_to_files, extension } = require('./helper-fuctions');
+
 
 router.use(function(req,res,next){
   if(!req.user)
@@ -23,23 +23,9 @@ router.get('/', function(req, res, next){
     '_id' : {$in: req.user.cards}
   })
   .then( (cardArray) => {
-    for(let i=0; i< cardArray.length; i++){
 
-      if(!cardArray[i].image_filename)
-        continue;
-      let filepath = '/images/displayed_files/image_of_card_' + 
-        i + 
-        cardArray[i].image_filename;
+    image_bufs_to_files(cardArray);
 
-      let buffer = cardArray[i].image;
-      console.log(filepath);
-      try{
-        fs.writeFileSync(pathToFileURL(path.join(__dirname,'..','public',filepath)), buffer, {flag: 'wx+'});
-      } catch(err){
-        console.log(err);
-      }
-      cardArray[i].$locals.image_src = filepath;
-    }
     res.render('profile', {
       user : req.user,
       cards: cardArray,
@@ -59,7 +45,7 @@ router.post('/create-card', upload.single('image_file'), function(req, res, next
     type: req.body.type,
     website: req.body.website,
     business_email: req.body.business_email,
-    image_filename: req.file.originalname,
+    image_filename: extension(req.file.originalname),
     image: req.file.buffer
   }).save()
   .then( (newCard)=>{

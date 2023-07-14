@@ -1,7 +1,12 @@
 extends layout
 
 block content
+
+  include ./mixin-card-view.pug
   .content
     h1= title
     p Welcome to #{title}
+    #business-card-container
+      each card in cards 
+        +cardView(card)
   

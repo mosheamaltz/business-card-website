@@ -1,6 +1,4 @@
 
-
-
 // Create Card button event handler:
 
 var openCardForm = ()=>{

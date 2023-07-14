@@ -1,8 +1,11 @@
 var express = require('express');
 var router = express.Router();
 
+const Card = require('../model/card');
+
 var fs = require('fs');
 var path = require('path');
+const { image_bufs_to_files } = require('./helper-fuctions');
 
 function killUserDataFiles() {
   const directoryPath =  path.join(__dirname, '..', 'public', 'images', 'displayed_files');
@@ -21,9 +24,15 @@ function killUserDataFiles() {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { 
-    title: 'Business card website', 
-    authenticated: req.user? true: false
+  Card.find({}).then((cardArray)=>{
+    
+    image_bufs_to_files(cardArray);
+
+    res.render('index', { 
+      title: 'Business card website', 
+      authenticated: req.user? true: false,
+      cards: cardArray
+    });
   });
 });
 

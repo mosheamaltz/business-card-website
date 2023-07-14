@@ -4,7 +4,9 @@ block content
 
     .content
         h1= title 
-        p Welcome! Please enter your email and password to sign up/sign in.
+        p New User? Sign up 
+            a(href="sign-up") here
+        p Welcome! Please enter your email and password to sign in.
         form(action="reg-signin", method="post") 
             input#email(type="email", name="username")
             input#password(type="password", name="password")
