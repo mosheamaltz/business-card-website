@@ -1,5 +1,4 @@
 node_modules/
-config/keys.js
 
 public/images/displayed_files/*
 !public/images/displayed_files/nothing.nothing
