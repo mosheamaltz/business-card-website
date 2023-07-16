@@ -1,5 +1,6 @@
+
 mixin cardView(card)
-        li.single-card
+        li.single-card(onClick='selectCard(this)', onMouseOver='this.classList.toggle(\'mouse-entered\')', onMouseOut='this.classList.toggle(\'mouse-entered\')', _id=card._id )
             .pic-and-name-container
                 img(src=card.$locals.image_src, alt="No Image")
                 .title-container
@@ -8,5 +9,5 @@ mixin cardView(card)
                     p Contact us! 
             .contact-us
                 p= card.phone
-                a(href="http://"+card.website)= card.website 
+                a(href=card.website)= card.website 
                 a(href="mailto:"+card.business_email)= card.business_email

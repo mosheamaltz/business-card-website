@@ -9,7 +9,7 @@ var Card = require('../model/card');
 var User = require('../model/user');
 
 
-const { image_bufs_to_files, extension } = require('./helper-fuctions');
+const { image_bufs_to_files, extension, card_to_pdf } = require('./helper-fuctions');
 
 
 router.use(function(req,res,next){
@@ -59,7 +59,12 @@ router.post('/create-card', upload.single('image_file'), function(req, res, next
 });
 
 
-
+router.get('/get-pdf/', (req, res, next)=>{
+  Card.findById(req.query._id)
+  .then((card)=>{
+    card_to_pdf(card, res);
+  });
+});
 
 
 module.exports = router;

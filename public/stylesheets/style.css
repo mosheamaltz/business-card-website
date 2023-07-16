@@ -57,6 +57,7 @@ p.error{
 
 #card_box{
   overflow-y: scroll;
+  overflow-x: hidden;
   max-height: 300px;
   max-width: fit-content;
   background: lightgray;
@@ -65,10 +66,26 @@ p.error{
   margin-left: 20px;
 }
 
+#pdfButton{
+  visibility: hidden;
+  margin-left: 10px;
+}
+#pdfButton.visible{
+  visibility: visible;
+}
+
+.single-card.mouse-entered{
+  background-color: cadetblue;
+}
+
+.single-card.selected{
+  outline-color: aquamarine;
+  background-color: aquamarine;
+}
 .single-card{
     display: block;
-    background-color: aliceblue;
-    color: darkblue;
+    background-color: #f0f8ff;
+    color: #00008b;
     font-size: 12px;
     width: 300px;
     outline-style: double;
@@ -77,13 +94,18 @@ p.error{
     text-align: center;
 }
 
+.single-card * {
+  overflow: hidden;
+}
+
 .single-card .pic-and-name-container{
   display: flex;
 }
 
 .single-card .title-container{
   position: relative;
-  left: 30px;
+    margin-left: auto;
+    text-align: right;
 }
 
 .single-card img{

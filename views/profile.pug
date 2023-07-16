@@ -4,15 +4,18 @@ block content
 
     .content 
         include ./mixin-card-view.pug
-        script(src='/javascripts/profile-page-behavior.js') 
-        h1= user.username 
-        p All cards 
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js") 
+        script(src='/javascripts/profile-page-behavior.js')
+        h1= user.username
+        p All cards
         #profile-page-content-container
             #card_box 
                 ul
                     each card in cards 
                         +cardView(card)
-                input(type="button", value="Create new card", id="createCardBtn", onClick="openCardForm()")
+                div(style={display: 'flex'})
+                    input(type="button", value="Create new card", id="createCardBtn", onClick="openCardForm()")
+                    input(type="button", value="Download as PDF", id='pdfButton', onClick="downloadSelectedCard()")
             #createCardForm(style={visibility: 'hidden'})
                 form(action="/profile/create-card", method="post" enctype='multipart/form-data') 
                     #x_button(onClick='closeCardForm()') X
