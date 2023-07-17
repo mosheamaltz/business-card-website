@@ -55,7 +55,7 @@ router.post('/reg-signin',
         failureRedirect: '/auth/?fail=1'
     }),
     function(req, res, next) {
-        res.render('index', { title: 'Regular Authentication PH', authenticated: true });
+        res.redirect('/profile/')
     }
 );
 
