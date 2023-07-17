@@ -1,7 +1,7 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20');
 const LocalStrategy = require('passport-local');
-const keys = require('./keys');
+const keys = require('/etc/secrets/keys');
 const User = require('../model/user');
 
 function stripEmailOfDots(email){
