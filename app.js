@@ -4,7 +4,7 @@ var path = require('path');
 var logger = require('morgan');
 //Mongo DB Access
 const mongoose = require('mongoose');
-const keys = require('/etc/secrets/keys');
+const keys = require('./config/keys');
 const passport = require('passport');
 
 var app = express();
