@@ -14,9 +14,11 @@ block content
                     each card in cards 
                         +cardView(card)
                 div(style={display: 'flex'})
-                    input(type="button", value="Create new card", id="createCardBtn", onClick="openCardForm()")
-                    input(type="button", value="Download as PDF", id='pdfButton', onClick="downloadSelectedCard()")
-            #createCardForm(style={visibility: 'hidden'})
+                    input(type="button", value="Create new card", id="createCardBtn", onClick="createCard()")
+                    input(type="button", value="Download as PDF", id='pdfButton', class='selected-card-option-btn' onClick="downloadSelectedCard()")
+                    input(type="button", value="Edit Card", id='editButton', class='selected-card-option-btn', onClick='editSelectedCard()')
+                    input(type="button", value="Delete Card", id='deleteButton', class='selected-card-option-btn', onClick='deleteSelectedCard()')
+            .card-form
                 form(action="/profile/create-card", method="post" enctype='multipart/form-data') 
                     #x_button(onClick='closeCardForm()') X
                     label(for="name") Name: 
@@ -31,4 +33,4 @@ block content
                     input#business_email(type="email", name="business_email")
                     input(type="button", value="Use Current User Email", onClick='document.getElementById(\'business_email\').value=\"'+user.username+'\"')
                     input#image_file(type="file", name="image_file", onchange='fileChosen()', accept='image/*')
-                    input(type="submit", value="Create")
+                    input#submit_form(type="submit", value="Create")

@@ -1,6 +1,7 @@
 body {
   padding: 0;
   margin: 0;
+  overflow: hidden;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -48,6 +49,17 @@ p.error{
   font-size: 12px;
 }
 
+/* Homepage styling*/
+
+#business-card-container{
+  display:block;
+  overflow: scroll;
+}
+
+
+
+
+
 /* Profile page styling */
 
 #profile-page-content-container{
@@ -59,18 +71,19 @@ p.error{
   overflow-y: scroll;
   overflow-x: hidden;
   max-height: 300px;
-  max-width: fit-content;
+  max-width: min-content;
   background: lightgray;
   display: block;
   padding: 10px;
   margin-left: 20px;
 }
 
-#pdfButton{
+.selected-card-option-btn {
   visibility: hidden;
   margin-left: 10px;
 }
-#pdfButton.visible{
+
+.selected-card-option-btn.visible{
   visibility: visible;
 }
 
@@ -83,7 +96,7 @@ p.error{
   background-color: aquamarine;
 }
 .single-card{
-    display: block;
+    display: inline-block;
     background-color: #f0f8ff;
     color: #00008b;
     font-size: 12px;
@@ -148,26 +161,29 @@ p.error{
   left:200px;
 }
 
-
-#createCardForm{
+.card-form {
   position: relative;
   display: table;
   margin-block-start: inherit;
   margin-left: inherit;
+  visibility: hidden;
+}
+.card-form.visible{
+  visibility: visible;
 }
 
-#createCardForm form {
+.card-form form {
   display: grid;
   outline: silver 10px;
   outline-style: groove;
 
 }
 
-#createCardForm form > * {
+.card-form form > * {
   margin: 5px;
 }
  
-#createCardForm input{
+.card-form input{
   width: 150px;
   background-color: antiquewhite;
   outline-width: 1px;

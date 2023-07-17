@@ -9,7 +9,7 @@ var Card = require('../model/card');
 var User = require('../model/user');
 
 
-const { image_bufs_to_files, extension, card_to_pdf } = require('./helper-fuctions');
+const { image_bufs_to_files, extension } = require('./helper-fuctions');
 
 
 router.use(function(req,res,next){
@@ -18,14 +18,14 @@ router.use(function(req,res,next){
   else next();
 });
 
-router.get('/', function(req, res, next){
+function render_prof_page(req, res){
   Card.find({
     '_id' : {$in: req.user.cards}
   })
   .then( (cardArray) => {
 
     image_bufs_to_files(cardArray);
-
+    res.location('/profile/');
     res.render('profile', {
       user : req.user,
       cards: cardArray,
@@ -33,7 +33,7 @@ router.get('/', function(req, res, next){
       authenticated: true
     });
   });
-});
+}
 
 router.post('/create-card', upload.single('image_file'), function(req, res, next){
   console.log(req.file);
@@ -53,18 +53,36 @@ router.post('/create-card', upload.single('image_file'), function(req, res, next
     .then( (updatedUser)=>{
       req.user = updatedUser;
     }).then(()=>{
-      res.redirect('/');}
+      res.redirect('/profile/');}
     );
   });
 });
 
-
-router.get('/get-pdf/', (req, res, next)=>{
-  Card.findById(req.query._id)
-  .then((card)=>{
-    card_to_pdf(card, res);
+router.post('/edit-card', upload.single('image_file'), (req, res, next)=>{
+  var cardId = req.query._id;
+  var updateFields = {};
+  for(var field in req.body){
+    if(field in Card.schema.tree && req.body[field] != '' )
+      updateFields[field] = req.body[field];
+  }
+  Card.findByIdAndUpdate(cardId, updateFields)
+  .then( (updatedCard)=>{
+      console.log('Updated Card: ', updatedCard);
+      res.redirect('/profile/');
   });
 });
 
 
+router.delete('/delete-card', (req, res, next) =>{
+  var cardId = req.query._id;
+  Card.findByIdAndDelete(cardId)
+  .then( () => {
+    User.findByIdAndUpdate(req.user.id, {$pull: {'cards': cardId}}).then(( updUser )=>{
+      console.log('Card '+updUser+' deleted successfully');
+      next();
+    });
+  });
+});
+
+router.use(render_prof_page)
 module.exports = router;
