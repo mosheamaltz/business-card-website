@@ -1,5 +1,7 @@
 
+
 // Create Card button event handler:
+
 
 var insideCard = false;
 
@@ -41,21 +43,34 @@ document.getElementsByTagName('body')[0].addEventListener('click', event=>{
         return;
     }
     deselectAllCards();
-    document.getElementById('pdfButton').classList.remove('visible');
+    var buttons = document.getElementsByClassName('selected-card-option-btn')
+    for(let i=0; i<buttons.length; i++)
+        buttons[i].classList.remove('visible');
 });
 
-var openCardForm = ()=>{
-    document.getElementById('createCardForm').style.visibility='visible';
+var form_visible = ()=>{
+    document.getElementsByClassName('card-form')[0].classList.add('visible');
 };
 
 var closeCardForm = ()=>{
-    document.getElementById('createCardForm').style.visibility='hidden';
+    document.getElementsByClassName('card-form')[0].classList.remove('visible');
 }
+
+var createCard = ()=>{
+    var formInputs = document.getElementsByTagName('form')[0].getElementsByTagName('input');
+    for(let i=0; i<formInputs.length; i++){
+        if(formInputs[i].type === 'text'|'url'|'email')
+            formInputs[i].value = '';
+    }
+    form_visible();
+};
+
+
 
 //File Chosen event handler:
 
 var fileChosen = ()=>{
-    if(this.files[0].size > 500*1024){ // If file greater than 500 KB
+    if(this.files && this.files[0].size > 500*1024){ // If file greater than 500 KB
        alert("File is too big! File needs to be smaller than 500KB. Please select another file");
        this.value = "";
     };
@@ -66,15 +81,18 @@ var deselectAllCards = ()=>{
     var selectedCards = document.getElementsByClassName('selected');
     for(let i = 0; i<selectedCards.length; i++)
     {
-        selectedCards[i].classList.toggle('selected');
+        selectedCards[i].classList.remove('selected');
     }
 };
 
 var selectCard = (element)=>{
     insideCard=true;
     deselectAllCards();
-    element.classList.toggle('selected');
-    document.getElementById('pdfButton').classList.add('visible');
+    closeCardForm();
+    element.classList.add('selected');
+    var buttons = document.getElementsByClassName('selected-card-option-btn')
+    for(let i=0; i<buttons.length; i++)
+        buttons[i].classList.add('visible');
 };
 
 var downloadSelectedCard = ()=>{
@@ -94,3 +112,33 @@ var downloadSelectedCard = ()=>{
     a.download = fileName;
     a.dispatchEvent(new MouseEvent('click'));
 };
+
+var editSelectedCard = ()=>{
+    var selectedCard = document.getElementsByClassName('selected')[0];
+    var card = {
+        name: selectedCard.getElementsByTagName('p')[0].textContent,
+        type: selectedCard.getElementsByTagName('p')[1].textContent,
+        phone: selectedCard.getElementsByTagName('p')[3].textContent,
+        website: selectedCard.getElementsByTagName('a')[0].textContent,
+        business_email: selectedCard.getElementsByTagName('a')[1].textContent
+    };
+    for(var property in card){
+        document.getElementById(property).value = card[property];
+    }
+    document.getElementById('submit_form').value = 'Edit Card';
+    var form = document.getElementsByTagName('form')[0];
+    form.action='/profile/edit-card/?_id='+selectedCard.getAttribute('_id');
+    form_visible();
+};
+
+var deleteSelectedCard = ()=>{
+    var selectedCard = document.getElementsByClassName('selected')[0];
+    if( !confirm('Are you sure you want to delete this card?\n' + selectedCard.textContent) )
+        return;
+    fetch('/profile/delete-card/?_id='+
+        selectedCard.getAttribute('_id'),{
+            method: 'DELETE',
+        }).then(()=>{
+            location.reload();
+        })
+}
