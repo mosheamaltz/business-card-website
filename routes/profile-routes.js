@@ -84,5 +84,5 @@ router.delete('/delete-card', (req, res, next) =>{
   });
 });
 
-router.use(render_prof_page)
+router.use(render_prof_page);
 module.exports = router;

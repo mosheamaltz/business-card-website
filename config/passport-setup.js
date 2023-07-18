@@ -4,6 +4,7 @@ const LocalStrategy = require('passport-local');
 const keys = require('./keys');
 const User = require('../model/user');
 
+
 function stripEmailOfDots(email){
     [head, tail] = email.split('@');
     head = head.split('.').join('');
@@ -53,8 +54,7 @@ passport.use(
             }
             else { // need to create new user for this google id
                 new User({
-                    username: email,
-                    password: null
+                    username: email
                 })
                 .save()
                 .then( (newUser) => {
@@ -67,8 +67,8 @@ passport.use(
 );
 
 
-
-passport.use(
+// Regular Log in - not thru google.
+passport.use('reg-signin',
     new LocalStrategy(
         (email, password, done) => {
             email = stripEmailOfDots(email);
@@ -76,23 +76,34 @@ passport.use(
             .then( (curUser) => {
                 if(curUser){
                     if(curUser.password != password)
-                        done(null, false);
+                        done('Wrong Password. Try again', false);
                     else {
                         console.log("User logged in successfully", curUser.username, curUser.password);
                         done(null, curUser);
                     }
                 }
-                else {// create new user
-                    new User({
-                        username: email,
-                        password: password
-                    }).save()
-                    .then( (newUser) => {
-                        console.log("User Created! ", newUser.username, newUser.password);
-                        done(null, newUser);
-                    })
+                else {
+                    done('No such user!', false);
                 }
             })
         }
     )
 );
+
+//Add new password and log in:
+
+passport.use('register-user', new LocalStrategy(
+    (email, password, done)=>{
+        email=stripEmailOfDots(email);
+        new User(
+            {
+                username: email,
+                password: null
+            }
+        ).save()
+        .then( (newUser) => {
+            console.log("new user created. ", newUser);
+            done(null, newUser);
+        });
+    }
+))
