@@ -4,14 +4,18 @@ block content
 
     .content
         h1= title 
-        p New User? Sign up 
-            a(href="sign-up") here
-        p Welcome! Please enter your email and password to sign in.
-        form(action="reg-signin", method="post") 
+        if in_or_up === '/reg-signin/'
+            p New User? Sign up 
+                a(href="/auth/sign-up/") here
+            p Welcome! Please enter your email and password to sign in.
+        else 
+            p Please enter your email to join our website!
+        form(action=in_or_up, method="post") 
             input#email(type="email", name="username")
-            input#password(type="password", name="password")
+            if in_or_up === '/reg-signin/'
+                input#password(type="password", name="password")
             if errMsg
-                p.error Wrong password. Try again.
-            input(type="submit", value="LOG IN", class="login-submit")
+                p.error= errMsg
+            input(type="submit", value=(in_or_up == '/reg-signin/'? 'LOG IN!' : 'SIGN UP!'), class="login-submit")
         p Or,
         a(href="./google/") Sign In With Google
