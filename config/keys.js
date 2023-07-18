@@ -11,4 +11,5 @@ module.exports = {
     session:{
         cookieKey: '726c97%Fgvauy$#fh'
     }
+    
 };
