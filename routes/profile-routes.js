@@ -65,6 +65,10 @@ router.post('/edit-card', upload.single('image_file'), (req, res, next)=>{
     if(field in Card.schema.tree && req.body[field] != '' )
       updateFields[field] = req.body[field];
   }
+  if(req.file){
+    updateFields['image_filename'] = extension(req.file.originalname);
+    updateFields['image'] = req.file.buffer;
+  }
   Card.findByIdAndUpdate(cardId, updateFields)
   .then( (updatedCard)=>{
       console.log('Updated Card: ', updatedCard);

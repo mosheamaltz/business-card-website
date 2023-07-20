@@ -1,7 +1,6 @@
 extends layout
 
 block content
-
     .content
         h1= title 
         if in_or_up === '/reg-signin/'
@@ -10,10 +9,10 @@ block content
             p Welcome! Please enter your email and password to sign in.
         else 
             p Please enter your email to join our website!
-        form(action=in_or_up, method="post") 
+        form(action='/auth'+in_or_up, method="post") 
             input#email(type="email", name="username")
             if in_or_up === '/reg-signin/'
-                input#password(type="password", name="password")
+                input#password(type="password", name="password", style={'visibility': (in_or_up === '/reg-signin/'? 'visible' :'hidden')}, value=(in_or_up === '/reg-signin/'? '' :'<placeholder>'))
             if errMsg
                 p.error= errMsg
             input(type="submit", value=(in_or_up == '/reg-signin/'? 'LOG IN!' : 'SIGN UP!'), class="login-submit")

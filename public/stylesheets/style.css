@@ -192,4 +192,13 @@ p.error{
 }
 
 
+/* Create password page styles */
 
+#error-message{
+  color: red;
+  visibility: hidden;
+}
+
+#error-message.visible{
+  visibility: visible;
+}

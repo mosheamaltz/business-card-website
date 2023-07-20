@@ -76,14 +76,14 @@ passport.use('reg-signin',
             .then( (curUser) => {
                 if(curUser){
                     if(curUser.password != password)
-                        done('Wrong Password. Try again', false);
+                        return done(null, false);
                     else {
                         console.log("User logged in successfully", curUser.username, curUser.password);
-                        done(null, curUser);
+                        return done(null, curUser);
                     }
                 }
                 else {
-                    done('No such user!', false);
+                    return done(null, false);
                 }
             })
         }
@@ -92,18 +92,28 @@ passport.use('reg-signin',
 
 //Add new password and log in:
 
-passport.use('register-user', new LocalStrategy(
-    (email, password, done)=>{
-        email=stripEmailOfDots(email);
-        new User(
-            {
-                username: email,
-                password: null
-            }
-        ).save()
-        .then( (newUser) => {
-            console.log("new user created. ", newUser);
-            done(null, newUser);
-        });
-    }
-))
+passport.use('register-user',
+    new LocalStrategy(
+        (email, password, done) => {
+            email=stripEmailOfDots(email);
+            User.findOne({username: email})
+            .then( (foundUser) => {
+                if(!foundUser){
+                    new User(
+                        {
+                            username: email,
+                            password: null
+                        }
+                    ).save()
+                    .then( (newUser) => {
+                        console.log("new user created. ", newUser);
+                        return done(null, newUser);
+                    });
+                }
+                else{
+                    return done(null, false);
+                }
+            });
+        }
+    )
+);
